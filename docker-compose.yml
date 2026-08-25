@@ -24,23 +24,39 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
-      - PGADMIN_LISTEN_PORT=${PGADMIN_LISTEN_PORT}
+      - PGADMIN_LISTEN_PORT=8082
     ports:
-      - "${PGADMIN_LISTEN_PORT}:${PGADMIN_LISTEN_PORT}"
+      - "8082:8080"
     depends_on:
       postgres:
         condition: service_healthy
     volumes:
       - ./servers.json:/pgadmin4/servers.json
 
+  minio:
+    image: cgr.dev/chainguard/minio:latest
+    container_name: minio
+    restart: always
+    command: server --console-address ":9001" /data
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    ports:
+      - "8000:9000"
+      - "8001:9001"
+    volumes:
+      - minio_data:/data
+
   dozzle:
     image: amir20/dozzle:latest
     container_name: dozzle
     restart: always
+    privileged: true
     ports:
       - "8080:8080"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $XDG_RUNTIME_DIR/podman/podman.sock:/var/run/docker.sock
 
 volumes:
   postgres_data:
+  minio_data:

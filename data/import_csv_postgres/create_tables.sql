@@ -75,5 +75,5 @@ CREATE TABLE raw_sellers (
 
 CREATE TABLE raw_product_category_translation (
     product_category_name VARCHAR(50),
-    product_category_name_en VARCHAR(50)
+    product_category_name_english VARCHAR(50)
 );

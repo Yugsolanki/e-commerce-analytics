@@ -9,8 +9,10 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "apache-airflow-providers-amazon>=9.35.0",
+    "apache-airflow-providers-postgres>=7.0.2",
     "dbt>=2.0.0rc212",
     "dbt-postgres>=1.11.0",
+    "pandas>=3.0.5",
 ]
 
 [project.scripts]

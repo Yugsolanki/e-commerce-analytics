@@ -28,6 +28,8 @@ def upload_via_hook(local_dir, bucket_name, aws_conn_id):
                 bucket_name=bucket_name,
                 replace=True
             )
+            
+    print("All files have been uploaded to MinIO.")
 
 def upload_to_postgres(bucket_name, aws_conn_id, postgres_conn_id):
     s3_hook = S3Hook(aws_conn_id=aws_conn_id)
@@ -49,6 +51,7 @@ def upload_to_postgres(bucket_name, aws_conn_id, postgres_conn_id):
             
             df.to_sql(
                 name=table_name,
+                schema='raw',
                 con=engine,
                 if_exists='append',
                 index=False

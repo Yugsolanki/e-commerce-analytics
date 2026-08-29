@@ -38,3 +38,4 @@ models:
       +materialized: view
     staging:
       +materialized: view # cuz no hard transformation is done, just renaming and recasting
+      +schema: staging

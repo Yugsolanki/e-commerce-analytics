@@ -11,5 +11,5 @@ select
     cast(price as {{ dbt.type_numeric() }}) as price,
     cast(freight_value as {{ dbt.type_numeric() }}) as freight_value,
     -- Metadata
-    cast(ingestion_timestamp as {{ dbt.type_timestamp() }}) as ingestion_timestamp
+    cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from source

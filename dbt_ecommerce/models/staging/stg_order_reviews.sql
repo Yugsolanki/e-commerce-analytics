@@ -11,5 +11,5 @@ select
     cast(review_creation_date as {{ dbt.type_timestamp() }}) as review_creation_date,
     cast(review_answer_timestamp as {{ dbt.type_timestamp() }}) as review_answer_timestamp,
     -- Metadata
-    cast(ingestion_timestamp as {{ dbt.type_timestamp() }}) as ingestion_timestamp
+    cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from source

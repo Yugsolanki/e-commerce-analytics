@@ -20,7 +20,7 @@ models:
       - name: customer_state
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
   
@@ -42,7 +42,7 @@ models:
       - name: geolocation_state
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
 
@@ -76,7 +76,7 @@ models:
       - name: freight_value
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
     
@@ -104,7 +104,7 @@ models:
       - name: payment_value
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
     
@@ -134,7 +134,7 @@ models:
       - name: review_answer_timestamp
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
   
@@ -160,7 +160,7 @@ models:
       - name: order_estimated_delivery_date
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
 
@@ -179,7 +179,7 @@ models:
       - name: product_length_cm
       - name: product_height_cm
       - name: product_width_cm
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
   
@@ -199,7 +199,7 @@ models:
       - name: seller_state
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
 
@@ -214,6 +214,6 @@ models:
         data_tests:
           - unique
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null

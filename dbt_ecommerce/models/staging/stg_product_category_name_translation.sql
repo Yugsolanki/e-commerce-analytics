@@ -6,5 +6,5 @@ select
     cast(product_category_name as {{ dbt.type_string() }}) as product_category_name,
     cast(product_category_name_english as {{ dbt.type_string() }}) as product_category_name_english,
     -- Metadata
-    cast(ingestion_timestamp as {{ dbt.type_timestamp() }}) as ingestion_timestamp
+    cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from source

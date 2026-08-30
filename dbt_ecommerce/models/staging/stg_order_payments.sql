@@ -9,5 +9,5 @@ select
     cast(payment_installments as {{ dbt.type_int() }}) as payment_installments,
     cast(payment_value as {{ dbt.type_numeric() }}) as payment_value,
     -- Metadata
-    cast(ingestion_timestamp as {{ dbt.type_timestamp() }}) as ingestion_timestamp
+    cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from source

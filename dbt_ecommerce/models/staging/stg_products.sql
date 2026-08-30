@@ -13,5 +13,5 @@ select
     cast(product_height_cm as {{ dbt.type_int() }}) as product_height_cm,
     cast(product_width_cm as {{ dbt.type_int() }}) as product_width_cm,
     -- Metadata
-    cast(ingestion_timestamp as {{ dbt.type_timestamp() }}) as ingestion_timestamp
+    cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from source

@@ -12,5 +12,5 @@ select
     cast(order_delivered_customer_date as {{ dbt.type_timestamp() }}) as order_delivered_customer_date,
     cast(order_estimated_delivery_date as {{ dbt.type_timestamp() }}) as order_estimated_delivery_date,
     -- Metadata
-    cast(ingestion_timestamp as {{ dbt.type_timestamp() }}) as ingestion_timestamp
+    cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from source

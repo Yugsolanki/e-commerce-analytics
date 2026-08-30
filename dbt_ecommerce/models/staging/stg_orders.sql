@@ -1,5 +1,14 @@
 with source as (
     select * from {{ source('ecommerce', 'orders') }}
+),
+
+deduped as (
+    select *,
+        row_number() over (
+            partition by order_id
+            order by _loaded_at desc
+        ) as rn
+    from source
 )
 
 select
@@ -13,4 +22,5 @@ select
     cast(order_estimated_delivery_date as {{ dbt.type_timestamp() }}) as order_estimated_delivery_date,
     -- Metadata
     cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
-from source
+from deduped
+where rn = 1

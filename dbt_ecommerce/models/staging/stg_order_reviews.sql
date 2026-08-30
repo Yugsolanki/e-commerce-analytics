@@ -1,5 +1,14 @@
 with source as (
     select * from {{ source('ecommerce', 'order_reviews') }}
+),
+
+deduped as (
+    select *,
+        row_number() over (
+            partition by review_id, order_id
+            order by _loaded_at desc
+        ) as rn
+    from source
 )
 
 select
@@ -12,4 +21,5 @@ select
     cast(review_answer_timestamp as {{ dbt.type_timestamp() }}) as review_answer_timestamp,
     -- Metadata
     cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
-from source
+from deduped
+where rn = 1

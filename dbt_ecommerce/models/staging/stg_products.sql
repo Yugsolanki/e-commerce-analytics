@@ -1,5 +1,14 @@
 with source as (
     select * from {{ source('ecommerce', 'products') }}
+),
+
+deduped as (
+    select *,
+        row_number() over (
+            partition by product_id
+            order by _loaded_at desc
+        ) as rn
+    from source
 )
 
 select
@@ -14,4 +23,5 @@ select
     cast(product_width_cm as {{ dbt.type_int() }}) as product_width_cm,
     -- Metadata
     cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
-from source
+from deduped
+where rn = 1

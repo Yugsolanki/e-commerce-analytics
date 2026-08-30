@@ -1,5 +1,14 @@
 with source as (
     select * from {{ source('ecommerce', 'order_payments') }}
+),
+
+deduped as (
+    select *,
+        row_number() over (
+            partition by order_id, payment_sequential
+            order by _loaded_at desc
+        ) as rn
+    from source
 )
 
 select
@@ -10,4 +19,5 @@ select
     cast(payment_value as {{ dbt.type_numeric() }}) as payment_value,
     -- Metadata
     cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
-from source
+from deduped
+where rn = 1

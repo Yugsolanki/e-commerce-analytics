@@ -43,7 +43,7 @@ def upload_to_postgres(bucket_name, aws_conn_id, postgres_conn_id):
             
             file_object = s3_hook.get_key(key=file_key, bucket_name=bucket_name)
             df = pd.read_csv(file_object.get()['Body'])
-            df["ingestion_timestamp"] = datetime.now()
+            df["_loaded_at"] = datetime.now()
             
             engine = postgres_hook.get_sqlalchemy_engine()
             

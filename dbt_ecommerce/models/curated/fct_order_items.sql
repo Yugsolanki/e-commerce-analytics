@@ -18,6 +18,8 @@ select
     i.shipping_limit_date,
     i.price,
     i.freight_value,
-    i.price + i.freight_value as line_total
+    i.price + i.freight_value as line_total,
+    -- Metadata
+    cast(i._loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from order_items i
 left join orders o on i.order_id = o.order_id

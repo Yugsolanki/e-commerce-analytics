@@ -13,6 +13,8 @@ select
     c.customer_city,
     c.customer_state,
     g.geolocation_lat,
-    g.geolocation_lng
+    g.geolocation_lng,
+    -- Metadata
+    cast(c._loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from customers c
 left join geolocation g on c.customer_zip_code = g.geolocation_zip_code

@@ -52,7 +52,10 @@ select
     o.hours_to_approval,
     o.days_to_delivery,
     o.is_late,
-    o.delay_days
+    o.delay_days,
+
+    -- Metadata
+    cast(o._loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from orders o
 left join items    i on o.order_id = i.order_id
 left join payments p on o.order_id = p.order_id

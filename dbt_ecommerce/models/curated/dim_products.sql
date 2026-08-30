@@ -13,6 +13,8 @@ select
     p.product_length_cm,
     p.product_height_cm,
     p.product_width_cm,
-    p.product_length_cm * p.product_height_cm * p.product_width_cm as product_volume_cm3
+    p.product_length_cm * p.product_height_cm * p.product_width_cm as product_volume_cm3,
+    -- Metadata
+    cast(p._loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from products p
 left join translation t on p.product_category_name = t.product_category_name

@@ -17,5 +17,7 @@ select
     extract(dow from date_day) as day_of_week,
     extract(week from date_day) as week_of_year,
     to_char(date_day, 'YYYY-MM') as year_month,
-    case when extract(dow from date_day) in (0, 6) then true else false end as is_weekend
+    case when extract(dow from date_day) in (0, 6) then true else false end as is_weekend,
+    -- Metadata
+    cast({{ dbt.current_timestamp() }} as {{ dbt.type_timestamp() }}) as _loaded_at
 from spine

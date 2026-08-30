@@ -20,5 +20,8 @@ select
 
     -- on time performace
     order_delivered_customer_date > order_estimated_delivery_date as is_late,
-    {{ dbt.datediff('order_estimated_delivery_date', 'order_delivered_customer_date', 'day') }} as delay_days
+    {{ dbt.datediff('order_estimated_delivery_date', 'order_delivered_customer_date', 'day') }} as delay_days,
+
+    -- Metadata
+    cast(ingestion_timestamp as {{ dbt.type_timestamp() }}) as ingestion_timestamp
 from source

@@ -15,6 +15,7 @@ select
     pay.payment_value_total,
     pay.primary_payment_type,
     rv.avg_review_score
+
 from source s
 inner join {{ ref('stg_customers') }} c on s.customer_id = c.customer_id
 left join {{ ref('int_order_items_agg') }} it on s.order_id = it.order_id

@@ -9,6 +9,8 @@ select
     avg(geolocation_lat) as geolocation_lat,
     avg(geolocation_lng) as geolocation_lng,
     min(geolocation_city)  as geolocation_city,
-    min(geolocation_state) as geolocation_state
+    min(geolocation_state) as geolocation_state,
+    -- Metadata
+    cast(max(ingestion_timestamp) as {{ dbt.type_timestamp() }}) as ingestion_timestamp
 from source
 group by geolocation_zip_code

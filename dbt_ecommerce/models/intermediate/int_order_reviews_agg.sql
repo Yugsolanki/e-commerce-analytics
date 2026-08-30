@@ -8,6 +8,8 @@ select
     order_id,
     count(*) as review_count,
     avg(score) as avg_review_score,
-    count(review_comment_message) as commented_review_count
+    count(review_comment_message) as commented_review_count,
+    -- Metadata
+    cast(max(ingestion_timestamp) as {{ dbt.type_timestamp() }}) as ingestion_timestamp
 from source
 group by order_id

@@ -13,6 +13,8 @@ select
     s.product_weight_g,
     s.product_length_cm,
     s.product_height_cm,
-    s.product_width_cm
+    s.product_width_cm,
+    -- Metadata
+    cast(s.ingestion_timestamp as {{ dbt.type_timestamp() }}) as ingestion_timestamp
 from source as s
 left join {{ ref('stg_product_category_name_translation') }} as t on s.product_category_name = t.product_category_name

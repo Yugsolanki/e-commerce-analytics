@@ -20,7 +20,7 @@ models:
       - name: geolocation_state
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
   
@@ -53,7 +53,7 @@ models:
       - name: order_value_total
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
   
@@ -79,7 +79,7 @@ models:
       - name: credit_card_value
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
 
@@ -99,7 +99,7 @@ models:
       - name: commented_review_count
         data_tests:
           - not_null
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
 
@@ -138,7 +138,7 @@ models:
           - not_null:
               config:
                 where: "order_status = 'delivered' and order_delivered_customer_date is not null"
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
 
@@ -157,7 +157,7 @@ models:
       - name: product_length_cm
       - name: product_height_cm
       - name: product_width_cm
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null
 
@@ -222,6 +222,6 @@ models:
               arguments:
                 min_value: 1
                 max_value: 5
-      - name: ingestion_timestamp
+      - name: _loaded_at
         data_tests:
           - not_null

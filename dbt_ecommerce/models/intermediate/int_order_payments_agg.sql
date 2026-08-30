@@ -12,6 +12,6 @@ select
     (array_agg(payment_type order by payment_value desc))[1] as primary_payment_type,
     sum(case when payment_type = 'credit_card' then payment_value else 0 end) as credit_card_value,
     -- Metadata
-    cast(max(ingestion_timestamp) as {{ dbt.type_timestamp() }}) as ingestion_timestamp
+    cast(max(_loaded_at) as {{ dbt.type_timestamp() }}) as _loaded_at
 from source
 group by order_id

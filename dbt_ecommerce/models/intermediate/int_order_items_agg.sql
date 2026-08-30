@@ -13,6 +13,6 @@ select
     sum(freight_value)              as freight_total,
     sum(price + freight_value)      as order_value_total,
     -- Metadata
-    cast(max(ingestion_timestamp) as {{ dbt.type_timestamp() }}) as ingestion_timestamp
+    cast(max(_loaded_at) as {{ dbt.type_timestamp() }}) as _loaded_at
 from source
 group by order_id

@@ -23,5 +23,5 @@ select
     {{ dbt.datediff('order_estimated_delivery_date', 'order_delivered_customer_date', 'day') }} as delay_days,
 
     -- Metadata
-    cast(ingestion_timestamp as {{ dbt.type_timestamp() }}) as ingestion_timestamp
+    cast(_loaded_at as {{ dbt.type_timestamp() }}) as _loaded_at
 from source

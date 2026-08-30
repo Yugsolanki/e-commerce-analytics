@@ -22,6 +22,9 @@ models:
           - not_null
       - name: geolocation_lat
       - name: geolocation_lng
+      - name: _loaded_at
+        data_tests:
+          - not_null
   
   - name: dim_dates
     description: ""
@@ -60,6 +63,9 @@ models:
       - name: is_weekend
         data_tests:
           - not_null
+      - name: _loaded_at
+        data_tests:
+          - not_null
   
   - name: dim_products
     description: ""
@@ -73,6 +79,9 @@ models:
       - name: product_height_cm
       - name: product_width_cm
       - name: product_volume_cm3
+      - name: _loaded_at
+        data_tests:
+          - not_null
   
   - name: dim_sellers
     description: ""
@@ -92,6 +101,9 @@ models:
           - not_null
       - name: geolocation_lat
       - name: geolocation_lng
+      - name: _loaded_at
+        data_tests:
+          - not_null
   
   - name: fct_order_items
     description: ""
@@ -128,6 +140,9 @@ models:
         data_tests:
           - not_null
       - name: line_total
+        data_tests:
+          - not_null
+      - name: _loaded_at
         data_tests:
           - not_null
     
@@ -192,3 +207,6 @@ models:
           - not_null:
               config:
                 where: "order_status = 'delivered' and order_delivered_customer_date is not null"
+      - name: _loaded_at
+        data_tests:
+          - not_null

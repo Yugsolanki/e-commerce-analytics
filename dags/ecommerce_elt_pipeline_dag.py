@@ -6,6 +6,8 @@ from airflow.providers.standard.operators.empty import EmptyOperator
 from airflow.providers.standard.operators.python import PythonOperator
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.providers.docker.operators.docker import DockerOperator
+from airflow.providers.docker.hooks.docker import DockerHook
 
 UPLOAD_RAW_PREFIX = "uploads/raw/"
 
@@ -101,7 +103,25 @@ with DAG(
         },
     )
 
+    run_dbt_models = DockerOperator(
+        task_id="run_dbt_models",
+        image="ecommerce-dbt:latest",
+        command="dbt build",
+        docker_url="unix://var/run/docker.sock",
+        network_mode="e-commerce-analytics_default",
+        auto_remove="success",
+        mount_tmp_dir=False,
+        environment={
+            "DBT_HOST": "postgres",
+            "DBT_PORT": "5432",
+            "DBT_USER": os.getenv("POSTGRES_USER", "admin"),
+            "DBT_PASSWORD": os.getenv("POSTGRES_PASSWORD", "admin"),
+            "DBT_DBNAME": os.getenv("POSTGRES_DB", "ecommerce"),
+            "DBT_SCHEMA": "dbt_dev"
+        }
+    )
+
     # End of the DAG
     end = EmptyOperator(task_id="end")
     
-    start >> upload_task >> upload_to_postgres_task >> end
+    start >> upload_task >> upload_to_postgres_task >> run_dbt_models >> end

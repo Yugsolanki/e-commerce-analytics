@@ -81,6 +81,26 @@ services:
     volumes:
       - minio_data:/data
 
+  dbt:
+    build:
+      context: ./dbt_ecommerce
+      dockerfile: Dockerfile
+    image: ecommerce-dbt:latest
+    container_name: dbt
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DBT_HOST=postgres
+      - DBT_PORT=5432
+      - DBT_USER=${POSTGRES_USER}
+      - DBT_PASSWORD=${POSTGRES_PASSWORD}
+      - DBT_DBNAME=${POSTGRES_DB}
+      - DBT_SCHEMA=dbt_dev
+    volumes:
+      - ./dbt_ecommerce:/usr/app/dbt
+    command: sleep infinity
+    
   dozzle:
     image: amir20/dozzle:latest
     container_name: dozzle

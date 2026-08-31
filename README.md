@@ -1,5 +1,10 @@
 # End-to-End E-Commerce Analytics Pipeline
 
+> [!NOTE]
+> **The codebase is human-written; only this README was generated with AI.**
+
+---
+
 A production-style batch ELT (Extract, Load, Transform) data pipeline that ingests raw e-commerce data (Olist Brazilian E-Commerce dataset) into MinIO object storage, loads raw data into PostgreSQL, transforms it through staging, intermediate, and curated star-schema layers using dbt, orchestrates workflows with Apache Airflow 3, and serves interactive analytics dashboards in Metabase.
 
 ![Executive Overview](images/Executive-Overview_Dashboard.png)
